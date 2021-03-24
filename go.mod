@@ -1,9 +1,9 @@
-module go.tmthrgd.dev/hsts
+module github.com/coffeemakr/hsts
 
 go 1.13
 
 require (
-	github.com/stretchr/testify v1.4.0
+	github.com/stretchr/testify v1.7.0
 	github.com/tmthrgd/go-filter v0.0.0-20190904060822-c467cba8264c
-	golang.org/x/net v0.0.0-20191014212845-da9a3fd4c582
+	golang.org/x/net v0.0.0-20210324051636-2c4c8ecb7826
 )
