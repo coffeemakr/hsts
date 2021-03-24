@@ -1,6 +1,7 @@
-package hsts
+package hsts_test
 
 import (
+	"github.com/coffeemakr/hsts"
 	"net/http"
 	"testing"
 
@@ -28,7 +29,7 @@ func TestIsPreloaded(t *testing.T) {
 
 		"1.0.0.1",
 	} {
-		assert.True(t, IsPreloaded(host), host)
+		assert.True(t, hsts.IsPreloaded(host), host)
 	}
 
 	for _, host := range []string{
@@ -48,7 +49,7 @@ func TestIsPreloaded(t *testing.T) {
 
 		"www.1.0.0.1",
 	} {
-		assert.False(t, IsPreloaded(host), host)
+		assert.False(t, hsts.IsPreloaded(host), host)
 	}
 }
 
@@ -78,7 +79,7 @@ func TestIsPreloadedAllocs(t *testing.T) {
 			"www.g.co",
 			"g.co",
 		} {
-			IsPreloaded(host)
+			hsts.IsPreloaded(host)
 		}
 	})
 	assert.Zero(t, allocs)
@@ -90,7 +91,7 @@ func (fn roundTripperFunc) RoundTrip(r *http.Request) (*http.Response, error) { 
 
 func TestTransport(t *testing.T) {
 	var got *http.Request
-	tr := &Transport{
+	tr := &hsts.Transport{
 		Base: roundTripperFunc(func(r *http.Request) (*http.Response, error) {
 			got = r
 			return nil, nil
@@ -144,6 +145,6 @@ func TestTransport(t *testing.T) {
 
 func BenchmarkIsPreloaded(b *testing.B) {
 	for n := 0; n < b.N; n++ {
-		IsPreloaded("tmthrgd.dev")
+		hsts.IsPreloaded("test.test.test.test.test.test.test.test.test.test.test.tmthrgd.dev")
 	}
 }
